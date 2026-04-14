@@ -22,23 +22,24 @@ public class TesteBiblioteca {
 		//TesteBuscaId();
 		//TesteBuscarNome();
 		
-		Config.fechar(); // Fecha a EntityManagerFactory
+
+		// Fecha a EntityManagerFactory
+		//Config.fechar(); 
 	}
 	
 	public static void TesteSalvar() {
 		int idAluno = 4;
 		int idPublicacao = 1;
 		int diasReserva = 9;
-		String dataEmprestimo = "2026-04-10"; //Utilizar o formato: AAAA-MM-DD
 		
-		EntityManager em = Config.getConexao();
+		EntityManager em = Config.getEntityManager();
 		EmprestimoDAO empdao = new EmprestimoDAO(em);
 		Emprestimo emp = new Emprestimo();
 		
 		Aluno aluno1 = em.find(Aluno.class, idAluno);
 		Publicacao pub1 = em.find(Publicacao.class, idPublicacao);
 		
-		emp.setDataEmprestimo(LocalDate.parse(dataEmprestimo));
+		emp.setDataEmprestimo(LocalDate.now());
 		emp.setDataDevolucao(LocalDate.now().plusDays(diasReserva));
 		emp.setAluno(aluno1);
 		emp.setPublicacao(pub1);
@@ -49,7 +50,7 @@ public class TesteBiblioteca {
 	}
 	
 	public static void TesteBuscarTodos() {
-		EntityManager em = Config.getConexao();
+		EntityManager em = Config.getEntityManager();
 		EmprestimoDAO empdao = new EmprestimoDAO(em);
 		List<Emprestimo> lista = empdao.BuscarTodos();
 		
@@ -68,14 +69,14 @@ public class TesteBiblioteca {
 	public static void TesteExcluir() {
 		int idParaExcluir = 6;
 		
-		EntityManager em = Config.getConexao();
+		EntityManager em = Config.getEntityManager();
 		EmprestimoDAO dao = new EmprestimoDAO(em);
 		Emprestimo emp = dao.consultarPorId(idParaExcluir);
 		
 		if(emp != null)
 			dao.excluir(emp.getIdEmprestimo());
 		else
-			System.out.println("Este Id não existe");
+			System.out.println("Id não encontrado para exclusão.");
 		
 		em.close();
 	}
@@ -83,7 +84,7 @@ public class TesteBiblioteca {
 	public static void TesteBuscaId() {
 		int idParaConsultar = 6;
 		
-		EntityManager em = Config.getConexao();
+		EntityManager em = Config.getEntityManager();
 		EmprestimoDAO dao = new EmprestimoDAO(em);
 		Emprestimo emp = dao.consultarPorId(idParaConsultar);
 		
@@ -106,9 +107,8 @@ public class TesteBiblioteca {
 		int idPublicacao = 4;
 		int idEmprestimo = 7;
 		int diasReserva = 10;
-		String dataEmprestimo = "2026-04-13"; //Utilizar o formato: AAAA-MM-DD
 		
-		EntityManager em = Config.getConexao();
+		EntityManager em = Config.getEntityManager();
 		EmprestimoDAO dao = new EmprestimoDAO(em);
 		Emprestimo emp = dao.consultarPorId(idEmprestimo);
 		
@@ -117,7 +117,7 @@ public class TesteBiblioteca {
 		
 		emp.setAluno(aluno);
 		emp.setPublicacao(pub);
-		emp.setDataEmprestimo(LocalDate.parse(dataEmprestimo));
+		emp.setDataEmprestimo(LocalDate.now());
 		emp.setDataDevolucao(LocalDate.now().plusDays(diasReserva));
 		
 		dao.alterar(emp);
@@ -128,7 +128,7 @@ public class TesteBiblioteca {
 	public static void TesteBuscarNome() {
 		String nome = "Lucas";
 		
-		EntityManager em = Config.getConexao();
+		EntityManager em = Config.getEntityManager();
 		EmprestimoDAO dao = new EmprestimoDAO(em);
 		
 		List<Emprestimo> lista = dao.buscarPorNomeAluno(nome);

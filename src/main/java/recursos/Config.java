@@ -21,15 +21,15 @@ public class Config {
         return emf;
     }
 
-    //Responsável pela conexão
-    public static EntityManager getConexao() {
+    //Responsável por instanciar a EntityManager
+    public static EntityManager getEntityManager() {
         return getFactory().createEntityManager();
     }
     
     // Testa a Conexão
     public static boolean TesteConexao() {
     	try {
-    		EntityManager em = getConexao();
+    		EntityManager em = getEntityManager();
     		em.isOpen();
     		System.out.println("Conexão realizada com sucesso!\n");
     		System.out.println("-----------------------------------\n\n");
