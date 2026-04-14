@@ -23,7 +23,7 @@ O projeto possui a seguinte estrutura:
 
 Orientações:
  - No H2, crie o banco de dados denominado "biblioteca" conforme o caminho indicado no persistence.xml
- - Utilize o pom.xml para instalação das depedências e persistence.xml para a configuração do banco.
+ - Utilize o pom.xml para instalação das dependências e persistence.xml para a configuração do banco.
  - As tabelas são criadas automaticamente. Se não ocorrer, utilizar o SQL de criação de tabelas (SQL-At1BI-ApBD).
  - Popule o banco usando os comandos em SQL-At1BI-ApBD-POPULAÇÃO.
  - Para testar o CRUD, em TesteBiblioteca, chame cada método na método principal.
